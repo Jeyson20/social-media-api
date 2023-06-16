@@ -22,11 +22,13 @@ namespace SocialMedia.Infrastructure.Persistence.Configurations
 
 			builder.HasMany(u => u.Comments)
 				.WithOne(p => p.Post)
-				.HasForeignKey(p => p.UserId);
+				.HasForeignKey(p => p.Id)
+				.OnDelete(DeleteBehavior.ClientSetNull);
 
 			builder.HasMany(u => u.Likes)
 				.WithOne(p => p.Post)
-				.HasForeignKey(p => p.UserId);
+				.HasForeignKey(p => p.PostId)
+				.OnDelete(DeleteBehavior.ClientSetNull);
 		}
 	}
 }
