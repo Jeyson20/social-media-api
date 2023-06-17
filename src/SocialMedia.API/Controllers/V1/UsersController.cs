@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Application.Common.Wrappers;
 using SocialMedia.Application.Users.Commands.CreateUser;
+using SocialMedia.Application.Users.Commands.UpdateUser;
 
 namespace SocialMedia.API.Controllers.V1
 {
@@ -17,5 +18,17 @@ namespace SocialMedia.API.Controllers.V1
 			return await Mediator.Send(command);
 		}
 
+		[HttpPut("{id}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<ApiResponse<int>>> UpdateUser(int id, UpdateUserCommand command)
+		{
+			if (id != command.Id)
+			{
+				return BadRequest();
+			}
+
+			return await Mediator.Send(command);
+		}
 	}
 }
