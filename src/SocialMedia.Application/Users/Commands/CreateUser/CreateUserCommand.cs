@@ -8,7 +8,7 @@ using SocialMedia.Domain.Enums;
 
 namespace SocialMedia.Application.Users.Commands.CreateUser
 {
-	public class CreateUserCommand : IRequest<ApiResponse<int>>, IMapFrom<User>
+	public record CreateUserCommand : IRequest<ApiResponse<int>>, IMapFrom<User>
 	{
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }

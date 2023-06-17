@@ -6,7 +6,7 @@ using SocialMedia.Domain.Enums;
 
 namespace SocialMedia.Application.Users.Commands.UpdateUser
 {
-	public class UpdateUserCommand : IRequest<ApiResponse<int>>, IMapFrom<User>
+	public record UpdateUserCommand : IRequest<ApiResponse<int>>, IMapFrom<User>
 	{
         public int Id { get; init; }
         public string? FirstName { get; init; }
