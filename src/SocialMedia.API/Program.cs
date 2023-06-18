@@ -1,3 +1,4 @@
+using SocialMedia.API.Extensions;
 using SocialMedia.Application;
 using SocialMedia.Infrastructure;
 using SocialMedia.Infrastructure.Persistence.Context;
@@ -41,5 +42,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MiddlewareExtensions();
 
 app.Run();

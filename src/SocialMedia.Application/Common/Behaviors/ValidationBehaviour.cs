@@ -1,5 +1,7 @@
-﻿using FluentValidation;
+﻿
+using FluentValidation;
 using MediatR;
+using ValidationException = SocialMedia.Application.Common.Exceptions.ValidationException;
 
 namespace SocialMedia.Application.Common.Behaviors
 {
