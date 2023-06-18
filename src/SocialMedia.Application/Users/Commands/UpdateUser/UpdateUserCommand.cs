@@ -13,7 +13,6 @@ namespace SocialMedia.Application.Users.Commands.UpdateUser
 		public string? LastName { get; init; }
 		public DateTime DateOfBirth { get; init; }
 		public Gender Gender { get; init; }
-		public string? Email { get; init; }
 		public string? PhoneNumber { get; init; }
 		public Status Status { get; init; }
 	}

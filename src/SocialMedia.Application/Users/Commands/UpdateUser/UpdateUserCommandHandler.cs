@@ -21,7 +21,6 @@ namespace SocialMedia.Application.Users.Commands.UpdateUser
 			user.LastName = request.LastName;
 			user.DateOfBirth = request.DateOfBirth;
 			user.Gender = request.Gender;
-			user.Email = request.Email;
 			user.PhoneNumber = request.PhoneNumber;
 			user.Status = request.Status;
 
