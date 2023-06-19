@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Application.Common.Interfaces;
@@ -20,10 +21,10 @@ namespace SocialMedia.Application.Users.Queries.GetUserById
 
 		public async Task<ApiResponse<UserDto>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
 		{
-			var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+			var userDto = await _context.Users
+				.ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+				.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
 				?? throw new KeyNotFoundException("User not found");
-
-			var userDto = _mapper.Map<UserDto>(user);
 
 			return new ApiResponse<UserDto>(userDto);
 		}

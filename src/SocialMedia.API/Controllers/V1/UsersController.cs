@@ -1,20 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SocialMedia.API.Utils;
 using SocialMedia.Application.Common.Exceptions;
 using SocialMedia.Application.Common.Wrappers;
-using SocialMedia.Application.Users.Commands.CreateUser;
 using SocialMedia.Application.Users.Commands.DeleteUser;
 using SocialMedia.Application.Users.Commands.UpdateUser;
 using SocialMedia.Application.Users.DTOs;
 using SocialMedia.Application.Users.Queries.GetUserById;
 using SocialMedia.Application.Users.Queries.GetUsers;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SocialMedia.API.Controllers.V1
 {
-	[Route("api/[controller]")]
-	[ApiController]
+	[Authorize]
+	[ApiVersion(ApiVersions.v1)]
+	[Route(Routes.ControllerRoute)]
 	public class UsersController : ApiControllerBase
 	{
 		[HttpGet]
+		[SwaggerOperation(Summary = "Get users with pagination")]
 		[ProducesResponseType(typeof(ApiPaginatedResponse<UserDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<ApiPaginatedResponse<UserDto>>> GetUsers([FromQuery] GetUsersQuery query)
@@ -24,6 +28,7 @@ namespace SocialMedia.API.Controllers.V1
 
 
 		[HttpGet("{id}")]
+		[SwaggerOperation(Summary = "Get user by id")]
 		[ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<ApiResponse<UserDto>>> GetUserById(int id)
@@ -31,16 +36,9 @@ namespace SocialMedia.API.Controllers.V1
 			return await Mediator.Send(new GetUserByIdQuery(id));
 		}
 
-		[HttpPost]
-		[ProducesResponseType(typeof(ApiResponse<int>), StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-		public async Task<ActionResult<ApiResponse<int>>> CreateUser(CreateUserCommand command)
-		{
-			return await Mediator.Send(command);
-		}
-
 		[HttpPut("{id}")]
-		[ProducesResponseType(StatusCodes.Status200OK)]
+		[SwaggerOperation(Summary = "Update user")]
+		[ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<ApiResponse<int>>> UpdateUser(int id, UpdateUserCommand command)
 		{
@@ -53,6 +51,7 @@ namespace SocialMedia.API.Controllers.V1
 		}
 
 		[HttpDelete("{id}")]
+		[SwaggerOperation(Summary = "Deactivate user")]
 		[ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<ApiResponse<int>>> DeleteUser(int id)
