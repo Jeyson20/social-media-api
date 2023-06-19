@@ -33,8 +33,6 @@ namespace SocialMedia.Infrastructure
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-			services.AddHttpContextAccessor();
-
 
 			var settings = new JsonSerializerSettings
 			{
