@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.API.Utils;
 using SocialMedia.Application.Auth.Commands.Authenticate;
+using SocialMedia.Application.Auth.Commands.RefreshToken;
 using SocialMedia.Application.Auth.DTOs;
 using SocialMedia.Application.Auth.Queries.Profile;
 using SocialMedia.Application.Common.Wrappers;
@@ -17,9 +18,18 @@ namespace SocialMedia.API.Controllers.V1
 	{
 		[HttpPost("Login")]
 		[SwaggerOperation(Summary = "Authenticate user")]
+		[ProducesResponseType(typeof(AuthDto), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<AuthDto>> Login(AuthenticateCommand command)
+		{
+			return await Mediator.Send(command);
+		}
+
+		[HttpPost("RefreshToken")]
+		[SwaggerOperation(Summary = "Generate new token by refrehToken")]
 		[ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult<TokenDto>> Login(AuthenticateCommand command)
+		public async Task<ActionResult<TokenDto>> RefreshToken(RefreshTokenCommand command)
 		{
 			return await Mediator.Send(command);
 		}
