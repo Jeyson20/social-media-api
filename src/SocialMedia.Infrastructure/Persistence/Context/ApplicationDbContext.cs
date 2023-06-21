@@ -20,6 +20,8 @@ namespace SocialMedia.Infrastructure.Persistence.Context
 		public DbSet<Comment> Comments => Set<Comment>();
 		public DbSet<Like> Likes => Set<Like>();
 
+		public DbSet<UserToken> UserTokens => Set<UserToken>();
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

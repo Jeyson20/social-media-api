@@ -11,7 +11,8 @@
         public string? Password { get; set; }
         public string? PhoneNumber { get; set; }
 		public Status Status { get; set; }
-		public ICollection<Post> Posts { get; private set; } = new List<Post>();
+        public UserToken? Token { get; set; }
+        public ICollection<Post> Posts { get; private set; } = new List<Post>();
 		public ICollection<Comment> Comments { get; private set; } = new List<Comment>();
 	}
 }
