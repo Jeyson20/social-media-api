@@ -4,7 +4,7 @@ using SocialMedia.Application.Common.Interfaces;
 
 namespace SocialMedia.Application.Auth.Commands.Authenticate
 {
-	internal class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommand, TokenDto>
+	internal class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommand, AuthDto>
 	{
 		private readonly IAuthService _authService;
 
@@ -13,7 +13,7 @@ namespace SocialMedia.Application.Auth.Commands.Authenticate
 			_authService = authService;
 		}
 
-		public async Task<TokenDto> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
+		public async Task<AuthDto> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
 		{
 			return await _authService.AuthenticateAsync(request, cancellationToken);
 		}
