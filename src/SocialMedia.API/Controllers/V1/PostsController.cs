@@ -30,6 +30,14 @@ namespace SocialMedia.API.Controllers.V1
 			return await Mediator.Send(query);
 		}
 
+		[HttpGet("{id}")]
+		[SwaggerOperation(Summary = "Get post by id")]
+		public async Task<ActionResult<ApiResponse<PostWithCommentsAndLikesDto>>>
+			GetPost(int id)
+		{
+			return await Mediator.Send(new GetPostByIdQuery(id));
+		}
+
 		
 	}
 }
