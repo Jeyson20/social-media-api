@@ -10,6 +10,6 @@ namespace SocialMedia.Application.Common.Interfaces
 		DbSet<Post> Posts { get; }
 		DbSet<Comment> Comments { get; }
 		DbSet<Like> Likes { get; }
-		Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 	}
 }

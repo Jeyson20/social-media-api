@@ -13,7 +13,7 @@ namespace SocialMedia.Infrastructure.Services
 			_httpContextAccessor = httpContextAccessor;
 		}
 
-		public int? GetUserId()
+		public int GetUserId()
 		{
 			var userIdString = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -22,7 +22,7 @@ namespace SocialMedia.Infrastructure.Services
 				return userId;
 			}
 
-			return null;
+			return 0;
 		}
 		public string? Username => _httpContextAccessor.HttpContext?.User?.FindFirstValue("name");
 
