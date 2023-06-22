@@ -22,6 +22,14 @@ namespace SocialMedia.API.Controllers.V1
 			return await Mediator.Send(command);
 		}
 
+		[HttpGet("Me")]
+		[SwaggerOperation(Summary = "Get posts by authenticated user")]
+		public async Task<ActionResult<ApiPaginatedResponse<PostUserDto>>> 
+			GetPostsByUser([FromQuery]GetPostsByUserQuery query)
+		{
+			return await Mediator.Send(query);
+		}
+
 		
 	}
 }
