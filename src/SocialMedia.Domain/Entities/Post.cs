@@ -6,8 +6,8 @@
 		public User User { get; set; } = null!;
 		public string? Description { get; set; }
 		public string? Image { get; set; }
-		public virtual ICollection<Comment> Comments { get; private set; } = new List<Comment>();
-		public virtual ICollection<Like> Likes { get; private set; } = new List<Like>();
+		public List<Comment>? Comments { get; private set; }
+		public ICollection<Like>? Likes { get; private set; }
 
 	}
 }

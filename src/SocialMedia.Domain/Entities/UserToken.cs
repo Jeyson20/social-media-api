@@ -1,12 +1,21 @@
 ﻿namespace SocialMedia.Domain.Entities
 {
-	public class UserToken
+	public class UserToken : BaseAuditableEntity
 	{
-		public int Id { get; set; }
-		public int UserId { get; set; }
-		public string? Token { get; set; }
-		public DateTime Expiration { get; set; }
-        public User? User { get; set; }
+		internal UserToken( string? token, DateTime expiration)
+		{
+			Token = token;
+			Expiration = expiration;
+		}
+		public int UserId { get; private set; }
+		public string? Token { get; private set; }
+		public DateTime Expiration { get; private set; }
+		public User? User { get; private set; }
 
-    }
+		public void UpdateUsertoken(string token)
+		{
+			Expiration = DateTime.Now.AddDays(1);
+			Token = token;
+		}
+	}
 }
