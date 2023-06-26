@@ -19,7 +19,8 @@ namespace SocialMedia.Application.Users.Commands.DeleteUser
 			var user = _context.Users.FirstOrDefault(x => x.Id == request.Id)
 				?? throw new KeyNotFoundException("User not found");
 
-			user.Status = Status.Inactive;
+			user.Deactivate();
+
 			await _context.SaveChangesAsync(cancellationToken);
 
 			return new ApiResponse<int>(user.Id);
