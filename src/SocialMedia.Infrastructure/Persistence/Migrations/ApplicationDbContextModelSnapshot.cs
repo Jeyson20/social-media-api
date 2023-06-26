@@ -25,20 +25,16 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("SocialMedia.Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
@@ -49,10 +45,16 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -66,9 +68,6 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("UserId", "PostId");
 
@@ -182,8 +181,20 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Expiration")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
@@ -203,13 +214,14 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("SocialMedia.Domain.Entities.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("SocialMedia.Domain.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
@@ -222,6 +234,7 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.HasOne("SocialMedia.Domain.Entities.Post", "Post")
                         .WithMany("Likes")
                         .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("SocialMedia.Domain.Entities.User", "User")

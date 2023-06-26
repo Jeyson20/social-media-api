@@ -1,6 +1,6 @@
 ﻿namespace SocialMedia.Domain.Common
 {
-	public abstract class BaseAuditableEntity : BaseEntity
+	public abstract class BaseAuditableEntity : BaseEntity<int>
 	{
 		public DateTime Created { get; set; }
 
