@@ -4,7 +4,7 @@ using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Application.Posts.DTOs
 {
-	public record PostWithCommentsAndLikesDto : IMapFrom<Post>
+	public record PostDto : IMapFrom<Post>
 	{
 		public int Id { get; set; }
 		public string? Image { get; set; }
@@ -14,16 +14,9 @@ namespace SocialMedia.Application.Posts.DTOs
 
 		public void Mapping(Profile profile)
 		{
-			profile.CreateMap<Post, PostWithCommentsAndLikesDto>()
+			profile.CreateMap<Post, PostDto>()
 				.ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments!.Count))
 				.ForMember(dest => dest.Likes, opt => opt.MapFrom(src => src.Likes!.Count));
 		}
-	}
-
-	public record PostCommentDto
-	{
-		public int Id { get; set; }
-		public string? Text { get; set; }
-		public string? Username { get; set; }
 	}
 }

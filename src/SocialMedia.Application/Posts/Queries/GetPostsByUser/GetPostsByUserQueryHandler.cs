@@ -2,7 +2,6 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SocialMedia.Application.Common.Interfaces;
 using SocialMedia.Application.Common.Mappings;
 using SocialMedia.Application.Common.Wrappers;
@@ -10,7 +9,7 @@ using SocialMedia.Application.Posts.DTOs;
 
 namespace SocialMedia.Application.Posts.Queries.GetPostsByUser
 {
-	internal class GetPostsByUserQueryHandler : IRequestHandler<GetPostsByUserQuery, ApiPaginatedResponse<PostUserDto>>
+	internal class GetPostsByUserQueryHandler : IRequestHandler<GetPostsByUserQuery, ApiPaginatedResponse<PostDto>>
 	{
 		private readonly IApplicationDbContext _context;
 		private readonly ICurrentUserService _currentUserService;
@@ -23,15 +22,13 @@ namespace SocialMedia.Application.Posts.Queries.GetPostsByUser
 			_currentUserService = currentUserService;
 		}
 
-		public async Task<ApiPaginatedResponse<PostUserDto>> Handle(GetPostsByUserQuery request, CancellationToken cancellationToken)
+		public async Task<ApiPaginatedResponse<PostDto>> Handle(GetPostsByUserQuery request, CancellationToken cancellationToken)
 		{
 			int userId = _currentUserService.GetUserId();
 
-			var user = await _context.Posts
-				.Where(x => x.UserId == userId).ToListAsync();
 			return await _context.Posts
 				.Where(x => x.UserId == userId)
-				.ProjectTo<PostUserDto>(_mapper.ConfigurationProvider)
+				.ProjectTo<PostDto>(_mapper.ConfigurationProvider)
 				.PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
 		}
 	}

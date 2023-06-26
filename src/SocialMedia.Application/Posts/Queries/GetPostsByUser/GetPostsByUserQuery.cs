@@ -4,7 +4,7 @@ using SocialMedia.Application.Posts.DTOs;
 
 namespace SocialMedia.Application.Posts.Queries.GetPostsByUser
 {
-	public record GetPostsByUserQuery : IRequest<ApiPaginatedResponse<PostUserDto>>
+	public record GetPostsByUserQuery : IRequest<ApiPaginatedResponse<PostDto>>
 	{
 		public int PageNumber { get; init; } = 1;
 		public int PageSize { get; init; } = 50;
