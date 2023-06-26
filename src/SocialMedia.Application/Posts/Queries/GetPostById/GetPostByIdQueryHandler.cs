@@ -2,47 +2,32 @@
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SocialMedia.Application.Common.Exceptions;
 using SocialMedia.Application.Common.Interfaces;
 using SocialMedia.Application.Common.Wrappers;
 using SocialMedia.Application.Posts.DTOs;
-using SocialMedia.Application.Users.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialMedia.Application.Posts.Queries.GetPostById
 {
-	internal class GetPostByIdQueryHandler : IRequestHandler<GetPostByIdQuery, ApiResponse<PostWithCommentsAndLikesDto>>
+	internal class GetPostByIdQueryHandler : IRequestHandler<GetPostByIdQuery, ApiResponse<PostDto>>
 	{
 		private readonly IApplicationDbContext _context;
-		private readonly ICurrentUserService _currentUserService;
 		private readonly IMapper _mapper;
-		public GetPostByIdQueryHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
+		public GetPostByIdQueryHandler(IApplicationDbContext context, IMapper mapper)
 		{
 			_context = context;
 			_mapper = mapper;
-			_currentUserService = currentUserService;
 		}
 
-		public async Task<ApiResponse<PostWithCommentsAndLikesDto>> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
+		public async Task<ApiResponse<PostDto>> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
 		{
-			int userId = _currentUserService.GetUserId();
-
 			var post = await _context.Posts
+				.Where(x => x.Id == request.Id)
 				.Include(x => x.Comments)
 				.Include(x => x.Likes)
-				.ProjectTo<PostWithCommentsAndLikesDto>(_mapper.ConfigurationProvider)
-				.FirstOrDefaultAsync(x => x.Id == request.Id);
+				.ProjectTo<PostDto>(_mapper.ConfigurationProvider)
+				.FirstOrDefaultAsync() ?? throw new KeyNotFoundException("Post not found");
 
-			if (post is null)
-			{
-				throw new KeyNotFoundException(nameof(post));
-			}
-
-			return new ApiResponse<PostWithCommentsAndLikesDto>(post);
+			return new ApiResponse<PostDto>(post);
 		}
 	}
 }
