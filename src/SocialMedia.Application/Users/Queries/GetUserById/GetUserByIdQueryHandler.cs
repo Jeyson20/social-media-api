@@ -22,8 +22,10 @@ namespace SocialMedia.Application.Users.Queries.GetUserById
 		public async Task<ApiResponse<UserDto>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
 		{
 			var userDto = await _context.Users
+				.Where(x => x.Id == request.Id)
+				.AsNoTracking()
 				.ProjectTo<UserDto>(_mapper.ConfigurationProvider)
-				.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+				.FirstOrDefaultAsync(cancellationToken)
 				?? throw new KeyNotFoundException("User not found");
 
 			return new ApiResponse<UserDto>(userDto);
