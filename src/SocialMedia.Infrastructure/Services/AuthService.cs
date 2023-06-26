@@ -48,24 +48,13 @@ namespace SocialMedia.Infrastructure.Services
 			string token = GenerateJwtToken(userExist);
 			string refreshToken = GenerateRefreshToken();
 
-			var expirationDate = DateTime.UtcNow.AddDays(1);
 			var hashedRefreshToken = PasswordHelper.HashPassword(refreshToken);
 
 			if (userExist.Token is null)
-			{
-				var newToken = new UserToken
-				{
-					UserId = userExist.Id,
-					Token = hashedRefreshToken,
-					Expiration = expirationDate
-				};
-				_context.UserTokens.Add(newToken);
-			}
+				userExist.SetUserToken(hashedRefreshToken);
 			else
-			{
-				userExist.Token.Token = hashedRefreshToken;
-				userExist.Token.Expiration = expirationDate;
-			}
+				userExist.Token.UpdateUsertoken(hashedRefreshToken);
+
 			await _context.SaveChangesAsync(cancellationToken);
 
 			return new AuthDto(token, refreshToken);
