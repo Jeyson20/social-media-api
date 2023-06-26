@@ -24,6 +24,7 @@ namespace SocialMedia.Application.Posts.Queries.GetPostById
 				.Where(x => x.Id == request.Id)
 				.Include(x => x.Comments)
 				.Include(x => x.Likes)
+				.AsNoTracking()
 				.ProjectTo<PostDto>(_mapper.ConfigurationProvider)
 				.FirstOrDefaultAsync() ?? throw new KeyNotFoundException("Post not found");
 

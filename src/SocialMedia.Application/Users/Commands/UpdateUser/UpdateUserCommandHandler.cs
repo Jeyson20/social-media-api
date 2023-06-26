@@ -17,12 +17,8 @@ namespace SocialMedia.Application.Users.Commands.UpdateUser
 			var user = _context.Users.FirstOrDefault(x => x.Id == request.Id) ??
 				throw new KeyNotFoundException("User not found");
 
-			user.FirstName = request.FirstName;
-			user.LastName = request.LastName;
-			user.DateOfBirth = request.DateOfBirth;
-			user.Gender = request.Gender;
-			user.PhoneNumber = request.PhoneNumber;
-			user.Status = request.Status;
+			user.Update(request.FirstName, request.LastName,
+				request.DateOfBirth, request.Gender, request.PhoneNumber);
 
 			_context.Users.Update(user);
 
