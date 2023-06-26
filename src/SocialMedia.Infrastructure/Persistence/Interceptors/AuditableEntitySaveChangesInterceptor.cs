@@ -9,10 +9,11 @@ namespace SocialMedia.Infrastructure.Persistence.Interceptors
 	public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 	{
 		private readonly IDateTime _dateTime;
-		private const string USER = "Admin";
-		public AuditableEntitySaveChangesInterceptor(IDateTime dateTime)
+		private readonly ICurrentUserService _currentUser;
+		public AuditableEntitySaveChangesInterceptor(IDateTime dateTime, ICurrentUserService currentUser)
 		{
 			_dateTime = dateTime;
+			_currentUser = currentUser;
 		}
 
 		public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
@@ -37,13 +38,13 @@ namespace SocialMedia.Infrastructure.Persistence.Interceptors
 			{
 				if (entry.State == EntityState.Added)
 				{
-					entry.Entity.CreatedBy = USER;
+					entry.Entity.CreatedBy = _currentUser.Username ?? "Admin";
 					entry.Entity.Created = _dateTime.Now;
 				}
 
 				if (entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
 				{
-					entry.Entity.LastModifiedBy = USER;
+					entry.Entity.LastModifiedBy = _currentUser.Username ?? "Admin";
 					entry.Entity.LastModified = _dateTime.Now;
 				}
 			}
