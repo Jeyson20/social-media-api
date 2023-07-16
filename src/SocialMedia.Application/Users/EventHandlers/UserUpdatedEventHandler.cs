@@ -4,14 +4,14 @@ using SocialMedia.Domain.Entities.Users.Events;
 
 namespace SocialMedia.Application.Users.EventHandlers
 {
-	public class UserDeletedEventHandler : INotificationHandler<UserDeletedEvent>
+	public class UserUpdatedEventHandler : INotificationHandler<UserUpdatedEvent>
 	{
-		private readonly ILogger<UserDeletedEventHandler> _logger;
-		public UserDeletedEventHandler(ILogger<UserDeletedEventHandler> logger)
+		private readonly ILogger<UserUpdatedEventHandler> _logger;
+		public UserUpdatedEventHandler(ILogger<UserUpdatedEventHandler> logger)
 		{
 			_logger = logger;
 		}
-		public Task Handle(UserDeletedEvent notification, CancellationToken cancellationToken)
+		public Task Handle(UserUpdatedEvent notification, CancellationToken cancellationToken)
 		{
 			_logger.LogInformation("SocialMedia DomainEvent: {DomainEvent}", notification.GetType().Name);
 			return Task.CompletedTask;
