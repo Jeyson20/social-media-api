@@ -51,7 +51,7 @@ namespace SocialMedia.Infrastructure.Persistence.Configurations
 			builder.HasMany(u => u.Posts)
 				.WithOne(p => p.User)
 				.HasForeignKey(p => p.UserId)
-				.OnDelete(DeleteBehavior.ClientSetNull);
+				.OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }
