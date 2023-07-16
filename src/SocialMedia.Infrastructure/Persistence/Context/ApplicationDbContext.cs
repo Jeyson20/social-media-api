@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Application.Common.Interfaces;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Posts;
 using SocialMedia.Domain.Entities.Users;
 using SocialMedia.Infrastructure.Common;
 using SocialMedia.Infrastructure.Persistence.Interceptors;

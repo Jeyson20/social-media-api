@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Posts;
 
 namespace SocialMedia.Infrastructure.Persistence.Configurations
 {
-	public class PostConfiguration : IEntityTypeConfiguration<Post>
+    public class PostConfiguration : IEntityTypeConfiguration<Post>
 	{
 		public void Configure(EntityTypeBuilder<Post> builder)
 		{

@@ -26,7 +26,7 @@ namespace SocialMedia.Application.Posts.Queries.GetPostById
 				.Include(x => x.Likes)
 				.AsNoTracking()
 				.ProjectTo<PostDto>(_mapper.ConfigurationProvider)
-				.FirstOrDefaultAsync() ?? throw new KeyNotFoundException("Post not found");
+				.FirstOrDefaultAsync(cancellationToken) ?? throw new KeyNotFoundException("Post not found");
 
 			return new ApiResponse<PostDto>(post);
 		}

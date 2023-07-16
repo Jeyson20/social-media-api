@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using SocialMedia.Application.Common.Mappings;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Posts;
 
 namespace SocialMedia.Application.Posts.DTOs
 {
-	public record PostDto : IMapFrom<Post>
+    public record PostDto : IMapFrom<Post>
 	{
 		public int Id { get; set; }
 		public string? Image { get; set; }

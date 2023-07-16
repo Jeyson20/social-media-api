@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using SocialMedia.Application.Common.Interfaces;
 using SocialMedia.Application.Common.Wrappers;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Posts;
 
 namespace SocialMedia.Application.Posts.Commands.CreatePost
 {
@@ -24,12 +23,7 @@ namespace SocialMedia.Application.Posts.Commands.CreatePost
 			if (!_context.Users.Any(x => x.Id == userId))
 				throw new KeyNotFoundException("User not found");
 
-			var newPost = new Post
-			{
-				UserId = userId,
-				Image = request.Image,
-				Description = request.Description,
-			};
+			var newPost = Post.Create(userId, request.Description, request.Image);
 
 			_context.Posts.Add(newPost);
 
