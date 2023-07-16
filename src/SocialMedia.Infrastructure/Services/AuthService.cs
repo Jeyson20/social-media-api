@@ -8,7 +8,7 @@ using SocialMedia.Application.Common.Exceptions;
 using SocialMedia.Application.Common.Helpers;
 using SocialMedia.Application.Common.Interfaces;
 using SocialMedia.Application.Common.Utils;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Users;
 using SocialMedia.Domain.Enums;
 using SocialMedia.Infrastructure.Persistence.Context;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,7 +18,7 @@ using System.Text;
 
 namespace SocialMedia.Infrastructure.Services
 {
-	public sealed class AuthService : IAuthService
+    public sealed class AuthService : IAuthService
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly JwtConfig _jwtConfig;

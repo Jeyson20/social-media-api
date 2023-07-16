@@ -24,7 +24,7 @@ namespace SocialMedia.API.Controllers.V1
 
 		[HttpGet("Me")]
 		[SwaggerOperation(Summary = "Get posts by authenticated user")]
-		public async Task<ActionResult<ApiPaginatedResponse<PostUserDto>>> 
+		public async Task<ActionResult<ApiPaginatedResponse<PostDto>>> 
 			GetPostsByUser([FromQuery]GetPostsByUserQuery query)
 		{
 			return await Mediator.Send(query);
@@ -32,7 +32,7 @@ namespace SocialMedia.API.Controllers.V1
 
 		[HttpGet("{id}")]
 		[SwaggerOperation(Summary = "Get post by id")]
-		public async Task<ActionResult<ApiResponse<PostWithCommentsAndLikesDto>>>
+		public async Task<ActionResult<ApiResponse<PostDto>>>
 			GetPost(int id)
 		{
 			return await Mediator.Send(new GetPostByIdQuery(id));
