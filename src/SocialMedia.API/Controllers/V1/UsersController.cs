@@ -6,6 +6,7 @@ using SocialMedia.Application.Common.Wrappers;
 using SocialMedia.Application.Users.Commands.DeleteUser;
 using SocialMedia.Application.Users.Commands.UpdateUser;
 using SocialMedia.Application.Users.DTOs;
+using SocialMedia.Application.Users.Queries.GetPostsByUser;
 using SocialMedia.Application.Users.Queries.GetUserById;
 using SocialMedia.Application.Users.Queries.GetUsers;
 using Swashbuckle.AspNetCore.Annotations;
@@ -36,6 +37,7 @@ namespace SocialMedia.API.Controllers.V1
 			return await Mediator.Send(new GetUserByIdQuery(id));
 		}
 
+		[Authorize]
 		[HttpPut("{id}")]
 		[SwaggerOperation(Summary = "Update user")]
 		[ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
@@ -50,6 +52,7 @@ namespace SocialMedia.API.Controllers.V1
 			return await Mediator.Send(command);
 		}
 
+		[Authorize]
 		[HttpDelete("{id}")]
 		[SwaggerOperation(Summary = "Deactivate user")]
 		[ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
@@ -57,6 +60,15 @@ namespace SocialMedia.API.Controllers.V1
 		public async Task<ActionResult<ApiResponse<int>>> DeleteUser(int id)
 		{
 			return await Mediator.Send(new DeleteUserCommand(id));
+		}
+
+		[Authorize]
+		[HttpGet("Posts/Me")]
+		[SwaggerOperation(Summary = "Get posts by authenticated user")]
+		public async Task<ActionResult<ApiPaginatedResponse<UserPostDto>>>
+			GetPostsByUser([FromQuery] GetPostsByUserQuery query)
+		{
+			return await Mediator.Send(query);
 		}
 	}
 }
