@@ -2,11 +2,11 @@
 using SocialMedia.Application.Common.Helpers;
 using SocialMedia.Application.Common.Interfaces;
 using SocialMedia.Application.Common.Wrappers;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Users;
 
 namespace SocialMedia.Application.Users.Commands.CreateUser
 {
-	public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ApiResponse<int>>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ApiResponse<int>>
 	{
 		private readonly IApplicationDbContext _context;
 		public CreateUserCommandHandler(IApplicationDbContext context)

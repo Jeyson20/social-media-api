@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Users;
 
 namespace SocialMedia.Application.Common.Interfaces
 {
-	public interface IApplicationDbContext : IDisposable
+    public interface IApplicationDbContext : IDisposable
 	{
 		DbSet<User> Users { get; }
 		DbSet<UserToken> UserTokens { get; }

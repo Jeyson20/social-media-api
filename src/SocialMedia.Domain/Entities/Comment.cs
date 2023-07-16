@@ -1,4 +1,6 @@
-﻿namespace SocialMedia.Domain.Entities
+﻿using SocialMedia.Domain.Entities.Users;
+
+namespace SocialMedia.Domain.Entities
 {
 	public class Comment : BaseAuditableEntity
 	{

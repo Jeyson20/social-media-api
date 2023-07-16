@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Users;
 
 namespace SocialMedia.Infrastructure.Persistence.Configurations
 {
-	public class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
+    public class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
 	{
 		public void Configure(EntityTypeBuilder<UserToken> builder)
 		{

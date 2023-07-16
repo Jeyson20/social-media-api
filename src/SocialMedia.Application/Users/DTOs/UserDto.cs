@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using SocialMedia.Application.Common.Mappings;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Users;
 using SocialMedia.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace SocialMedia.Application.Users.DTOs
 {
-	public record UserDto : IMapFrom<UserDto>
+    public record UserDto : IMapFrom<UserDto>
 	{
         public int Id { get; set; }
         public string? FirstName { get; set; }

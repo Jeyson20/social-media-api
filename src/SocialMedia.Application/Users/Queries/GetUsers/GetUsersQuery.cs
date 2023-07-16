@@ -2,12 +2,12 @@
 using MediatR;
 using SocialMedia.Application.Common.Wrappers;
 using SocialMedia.Application.Users.DTOs;
-using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Entities.Users;
 using SocialMedia.Domain.Enums;
 
 namespace SocialMedia.Application.Users.Queries.GetUsers
 {
-	public record GetUsersQuery : IRequest<ApiPaginatedResponse<UserDto>>
+    public record GetUsersQuery : IRequest<ApiPaginatedResponse<UserDto>>
 	{
 		public Status Status { get; set; }
 		public string? Username { get; init; }
