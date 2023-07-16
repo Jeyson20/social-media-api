@@ -1,8 +1,5 @@
 ﻿using MediatR;
 
-namespace SocialMedia.Domain.Common
-{
-	public abstract class BaseEvent : INotification
-	{
-	}
-}
+namespace SocialMedia.Domain.Common;
+public record BaseEvent(Guid Id) : INotification;
+
