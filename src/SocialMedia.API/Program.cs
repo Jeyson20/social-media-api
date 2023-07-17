@@ -1,19 +1,28 @@
+using Microsoft.AspNetCore.ResponseCompression;
 using SocialMedia.API;
 using SocialMedia.API.Extensions;
 using SocialMedia.Application;
 using SocialMedia.Infrastructure;
 using SocialMedia.Infrastructure.Persistence.Context;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Layers
-builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddWebAPIServices();
+
+builder.Services
+	.AddApplicationServices()
+	.AddInfrastructureServices(builder.Configuration)
+	.AddWebAPIServices();
+
+builder.Services
+	.AddResponseCompression(o => o.EnableForHttps = true)
+	.Configure<BrotliCompressionProviderOptions>(o => o.Level = CompressionLevel.Fastest);
 
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -26,6 +35,8 @@ if (app.Environment.IsDevelopment())
 	var dbContextInitialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 	await dbContextInitialiser.InitialiseAsync();
 }
+
+app.UseResponseCompression();
 
 app.UseHttpsRedirection();
 
