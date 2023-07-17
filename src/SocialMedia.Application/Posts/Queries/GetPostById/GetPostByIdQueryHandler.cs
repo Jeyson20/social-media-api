@@ -22,6 +22,7 @@ namespace SocialMedia.Application.Posts.Queries.GetPostById
 		{
 			var post = await _context.Posts
 				.Where(x => x.Id == request.Id)
+				.Include(x => x.User)
 				.Include(x => x.Comments)
 				.Include(x => x.Likes)
 				.AsNoTracking()

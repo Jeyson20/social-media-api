@@ -17,42 +17,33 @@ namespace SocialMedia.API.Controllers.V1
 	public class AuthController : ApiControllerBase
 	{
 		[HttpPost("Login")]
-		[SwaggerOperation(Summary = "Authenticate user")]
+		[SwaggerOperation(Summary = "Public: Authenticate user")]
 		[ProducesResponseType(typeof(AuthDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<AuthDto>> Login(AuthenticateCommand command)
-		{
-			return await Mediator.Send(command);
-		}
+			=> await Mediator.Send(command);
 
 		[HttpPost("RefreshToken")]
-		[SwaggerOperation(Summary = "Generate new token by refrehToken")]
+		[SwaggerOperation(Summary = "Public: Generate new token by refrehToken")]
 		[ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<TokenDto>> RefreshToken(RefreshTokenCommand command)
-		{
-			return await Mediator.Send(command);
-		}
+			=> await Mediator.Send(command);
 
 		[HttpPost("Signup")]
-		[SwaggerOperation(Summary = "Create user")]
+		[SwaggerOperation(Summary = "Public: Create user")]
 		[ProducesResponseType(typeof(ApiResponse<int>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
 		public async Task<ActionResult<ApiResponse<int>>> Signup(CreateUserCommand command)
-		{
-			return await Mediator.Send(command);
-		}
+			=> await Mediator.Send(command);
 
 		[Authorize]
 		[HttpPost("Profile")]
-		[SwaggerOperation(Summary = "Get authenticated user profile")]
+		[SwaggerOperation(Summary = "Private: Get authenticated user profile")]
 		[ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
 		public async Task<ActionResult<ApiResponse<UserDto>>> Profile()
-		{
-			return await Mediator.Send(new ProfileQuery());
-		}
-
+			=> await Mediator.Send(new ProfileQuery());
 
 	}
 }
