@@ -5,16 +5,13 @@ using SocialMedia.Application.Users.DTOs;
 using SocialMedia.Domain.Entities.Users;
 using SocialMedia.Domain.Enums;
 
-namespace SocialMedia.Application.Users.Queries.GetUsers
+namespace SocialMedia.Application.Users.Queries.GetAllUsers
 {
-    public record GetUsersQuery : IRequest<ApiPaginatedResponse<UserDto>>
-	{
-		public Status Status { get; set; }
-		public string? Username { get; init; }
-		public string? Email { get; set; }
-		public int PageNumber { get; init; } = 1;
-		public int PageSize { get; init; } = 10;
-	};
+    public record GetAllUsersQuery (
+		Status Status,
+		string? Username,
+		string? Email) : PaginatedRequest, IRequest<ApiPaginatedResponse<UserDto>>;
+
 
 	public class UserSpecification : Specification<User>
 	{

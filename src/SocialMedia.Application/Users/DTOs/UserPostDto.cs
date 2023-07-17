@@ -15,8 +15,8 @@ namespace SocialMedia.Application.Users.DTOs
 		public void Mapping(Profile profile)
 		{
 			profile.CreateMap<Post, UserPostDto>()
-				.ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments!.Count))
-				.ForMember(dest => dest.Likes, opt => opt.MapFrom(src => src.Likes!.Count));
+				.ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments.Count))
+				.ForMember(dest => dest.Likes, opt => opt.MapFrom(src => src.Likes.Count));
 		}
 	}
 }
