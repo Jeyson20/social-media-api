@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SocialMedia.Domain.Entities;
 using SocialMedia.Domain.Entities.Posts;
 using SocialMedia.Domain.Entities.Users;
 

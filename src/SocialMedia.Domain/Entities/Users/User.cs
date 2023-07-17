@@ -1,4 +1,5 @@
-﻿using SocialMedia.Domain.Entities.Users.Events;
+﻿using SocialMedia.Domain.Entities.Posts.Events;
+using SocialMedia.Domain.Entities.Users.Events;
 
 namespace SocialMedia.Domain.Entities.Users
 {
@@ -18,8 +19,6 @@ namespace SocialMedia.Domain.Entities.Users
 		public UserToken? Token { get; private set; }
 		public IReadOnlyList<Post> Posts => _posts;
 		public IReadOnlyList<Comment> Comments => _comments;
-
-#pragma warning disable CS8618
 		private User() { }
 		public static User Create(string firstName, string lastName, DateTime dateOfBirth, Gender gender,
 			string email, string username, string password, string phoneNumber
@@ -57,8 +56,9 @@ namespace SocialMedia.Domain.Entities.Users
 		public void Deactivate()
 		{
 			Status = Status.Inactive;
-			AddDomainEvent(new UserDeactivatedEvent(Id));
+			AddDomainEvent(new UserDeletedEvent(Id));
 		}
+
 		public void SetUserToken(string token)
 		{
 			DateTime expiration = DateTime.Now.AddDays(1);
@@ -67,5 +67,28 @@ namespace SocialMedia.Domain.Entities.Users
 
 			AddDomainEvent(new UserTokenCreatedEvent(userToken));
 		}
+
+		public void DeleteUserPost(int postId)
+		{
+			var post = _posts.FirstOrDefault(x => x.Id == postId);
+
+			if (post is null) throw new KeyNotFoundException(nameof(post));
+
+			_posts.Remove(post);
+
+			AddDomainEvent(new PostDeletedEvent(Id, postId));
+		}
+
+		public void DeleteUserComment(int commentId)
+		{
+			var comment = _comments.FirstOrDefault(x => x.Id == commentId);
+
+			if (comment is null) throw new KeyNotFoundException(nameof(comment));
+
+			_comments.Remove(comment);
+
+			AddDomainEvent(new PostCommentDeletedEvent(Id, commentId));
+		}
+
 	}
 }
