@@ -1,3 +1,3 @@
-﻿namespace SocialMedia.Domain.Entities.Users.Events;
+﻿namespace SocialMedia.Domain.Events.Users;
 
 public record UserDeletedEvent(int UserId) : BaseEvent(Guid.NewGuid());
