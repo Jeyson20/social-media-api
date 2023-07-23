@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMedia.Domain.Entities.Posts;
+using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Infrastructure.Persistence.Configurations
 {
@@ -16,7 +16,8 @@ namespace SocialMedia.Infrastructure.Persistence.Configurations
 				.IsRequired();
 
 			builder.Property(e => e.Description)
-				.HasMaxLength(200);
+				.HasMaxLength(200)
+				.IsRequired();
 
 			builder.Property(e => e.Image);
 

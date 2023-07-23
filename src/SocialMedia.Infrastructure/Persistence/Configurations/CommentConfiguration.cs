@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMedia.Domain.Entities.Posts;
+using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Infrastructure.Persistence.Configurations
 {
@@ -12,7 +12,8 @@ namespace SocialMedia.Infrastructure.Persistence.Configurations
 
 			builder.HasKey(c => c.Id);
 
-			builder.Property(c => c.UserId);
+			builder.Property(c => c.UserId)
+				.IsRequired();
 
 			builder.Property(c => c.Text)
 				.IsRequired();

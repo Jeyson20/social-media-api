@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMedia.Domain.Entities.Users;
+using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Infrastructure.Persistence.Configurations
 {
@@ -11,8 +11,6 @@ namespace SocialMedia.Infrastructure.Persistence.Configurations
 			builder.ToTable("Users");
 
 			builder.HasKey(u => u.Id);
-
-			builder.Ignore(x => x.DomainEvents);
 
 			builder.Property(u => u.FirstName)
 				.HasMaxLength(50);
@@ -42,11 +40,6 @@ namespace SocialMedia.Infrastructure.Persistence.Configurations
 
 			builder.Property(u => u.Status)
 				.IsRequired();
-
-			builder.HasMany(u => u.Posts)
-				.WithOne(p => p.User)
-				.HasForeignKey(p => p.UserId)
-				.OnDelete(DeleteBehavior.Cascade);
 
 			builder.HasMany(u => u.Posts)
 				.WithOne(p => p.User)

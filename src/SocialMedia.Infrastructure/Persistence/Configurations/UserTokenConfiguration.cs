@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMedia.Domain.Entities.Users;
+using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Infrastructure.Persistence.Configurations
 {
@@ -12,8 +12,14 @@ namespace SocialMedia.Infrastructure.Persistence.Configurations
 
 			builder.HasKey(u => u.Id);
 
+			builder.Property(u => u.UserId)
+				.IsRequired();
+
+			builder.Property(u => u.Token)
+				.IsRequired();
+
 			builder.HasOne(t => t.User)
-			.WithOne(u => u.Token)
+			.WithOne(u => u.RefreshToken)
 			.OnDelete(DeleteBehavior.Cascade);
 		}
 	}

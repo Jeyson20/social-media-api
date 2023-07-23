@@ -12,7 +12,7 @@ using SocialMedia.Infrastructure.Persistence.Context;
 namespace SocialMedia.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230716082835_Initial")]
+    [Migration("20230723060938_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Posts.Comment", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,22 +64,42 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.ToTable("Comments", (string)null);
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Posts.Like", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.Like", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "PostId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("UserId", "PostId");
 
                     b.HasIndex("PostId");
 
                     b.ToTable("Likes", (string)null);
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Posts.Post", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,6 +114,7 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -116,7 +137,7 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.ToTable("Posts", (string)null);
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Users.User", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -179,7 +200,7 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Users.UserToken", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.UserToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -203,6 +224,7 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Token")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
@@ -216,15 +238,15 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Posts.Comment", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("SocialMedia.Domain.Entities.Posts.Post", "Post")
+                    b.HasOne("SocialMedia.Domain.Entities.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SocialMedia.Domain.Entities.Users.User", "User")
+                    b.HasOne("SocialMedia.Domain.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -235,18 +257,18 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Posts.Like", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.Like", b =>
                 {
-                    b.HasOne("SocialMedia.Domain.Entities.Posts.Post", "Post")
+                    b.HasOne("SocialMedia.Domain.Entities.Post", "Post")
                         .WithMany("Likes")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SocialMedia.Domain.Entities.Users.User", "User")
-                        .WithMany()
+                    b.HasOne("SocialMedia.Domain.Entities.User", "User")
+                        .WithMany("Likes")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Post");
@@ -254,9 +276,9 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Posts.Post", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.Post", b =>
                 {
-                    b.HasOne("SocialMedia.Domain.Entities.Users.User", "User")
+                    b.HasOne("SocialMedia.Domain.Entities.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -265,31 +287,33 @@ namespace SocialMedia.Infrastructure.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Users.UserToken", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.UserToken", b =>
                 {
-                    b.HasOne("SocialMedia.Domain.Entities.Users.User", "User")
-                        .WithOne("Token")
-                        .HasForeignKey("SocialMedia.Domain.Entities.Users.UserToken", "UserId")
+                    b.HasOne("SocialMedia.Domain.Entities.User", "User")
+                        .WithOne("RefreshToken")
+                        .HasForeignKey("SocialMedia.Domain.Entities.UserToken", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Posts.Post", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Likes");
                 });
 
-            modelBuilder.Entity("SocialMedia.Domain.Entities.Users.User", b =>
+            modelBuilder.Entity("SocialMedia.Domain.Entities.User", b =>
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("Likes");
+
                     b.Navigation("Posts");
 
-                    b.Navigation("Token");
+                    b.Navigation("RefreshToken");
                 });
 #pragma warning restore 612, 618
         }
