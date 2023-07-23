@@ -9,7 +9,7 @@ using SocialMedia.Application.Posts.DTOs;
 
 namespace SocialMedia.Application.Posts.Queries.GetAllPosts
 {
-	internal class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, ApiPaginatedResponse<PostDto>>
+	public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, ApiPaginatedResponse<PostDto>>
 	{
 		private readonly IApplicationDbContext _context;
 		private readonly IMapper _mapper;

@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using SocialMedia.Application.Common.Interfaces;
 using SocialMedia.Application.Common.Wrappers;
-using SocialMedia.Domain.Entities.Posts;
+using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Application.Posts.Commands.CreatePost
 {
-	internal class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, ApiResponse<int>>
+    public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, ApiResponse<int>>
 	{
 		private readonly IApplicationDbContext _context;
 		private readonly ICurrentUserService _currentUser;

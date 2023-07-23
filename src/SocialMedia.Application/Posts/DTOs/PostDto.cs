@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SocialMedia.Application.Common.Mappings;
-using SocialMedia.Domain.Entities.Posts;
+using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Application.Posts.DTOs
 {

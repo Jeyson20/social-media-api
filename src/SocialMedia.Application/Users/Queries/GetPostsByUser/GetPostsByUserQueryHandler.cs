@@ -9,7 +9,7 @@ using SocialMedia.Application.Users.DTOs;
 
 namespace SocialMedia.Application.Users.Queries.GetPostsByUser
 {
-	internal class GetPostsByUserQueryHandler : IRequestHandler<GetPostsByUserQuery, ApiPaginatedResponse<UserPostDto>>
+	public class GetPostsByUserQueryHandler : IRequestHandler<GetPostsByUserQuery, ApiPaginatedResponse<UserPostDto>>
 	{
 		private readonly IApplicationDbContext _context;
 		private readonly ICurrentUserService _currentUserService;

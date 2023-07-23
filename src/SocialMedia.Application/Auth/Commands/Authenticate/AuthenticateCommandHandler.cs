@@ -4,7 +4,7 @@ using SocialMedia.Application.Common.Interfaces;
 
 namespace SocialMedia.Application.Auth.Commands.Authenticate
 {
-	internal class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommand, AuthDto>
+	public class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommand, AuthDto>
 	{
 		private readonly IAuthService _authService;
 

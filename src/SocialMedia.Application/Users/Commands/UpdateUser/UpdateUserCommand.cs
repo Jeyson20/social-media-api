@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using SocialMedia.Application.Common.Mappings;
 using SocialMedia.Application.Common.Wrappers;
-using SocialMedia.Domain.Entities.Users;
+using SocialMedia.Domain.Entities;
 using SocialMedia.Domain.Enums;
 
 namespace SocialMedia.Application.Users.Commands.UpdateUser
 {
-	public record UpdateUserCommand : IRequest<ApiResponse<int>>, IMapFrom<User>
+    public record UpdateUserCommand : IRequest<ApiResponse<int>>, IMapFrom<User>
 	{
         public int Id { get; init; }
         public string FirstName { get; init; } = string.Empty;

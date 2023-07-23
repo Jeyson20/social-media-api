@@ -5,7 +5,7 @@ using SocialMedia.Domain.Enums;
 
 namespace SocialMedia.Application.Users.Commands.DeleteUser
 {
-	internal class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ApiResponse<int>>
+	public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ApiResponse<int>>
 	{
 		private readonly IApplicationDbContext _context;
 

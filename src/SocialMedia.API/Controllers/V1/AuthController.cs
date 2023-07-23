@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using SocialMedia.API.Utils;
 using SocialMedia.Application.Auth.Commands.Authenticate;
 using SocialMedia.Application.Auth.Commands.RefreshToken;
+using SocialMedia.Application.Auth.Commands.Register;
 using SocialMedia.Application.Auth.DTOs;
 using SocialMedia.Application.Auth.Queries.Profile;
 using SocialMedia.Application.Common.Wrappers;
-using SocialMedia.Application.Users.Commands.CreateUser;
 using SocialMedia.Application.Users.DTOs;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SocialMedia.API.Controllers.V1
 {
-	[ApiVersion(ApiVersions.v1)]
+    [ApiVersion(ApiVersions.v1)]
 	[Route(Routes.ControllerRoute)]
 	public class AuthController : ApiControllerBase
 	{
@@ -34,7 +34,7 @@ namespace SocialMedia.API.Controllers.V1
 		[SwaggerOperation(Summary = "Public: Create user")]
 		[ProducesResponseType(typeof(ApiResponse<int>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-		public async Task<ActionResult<ApiResponse<int>>> Signup(CreateUserCommand command)
+		public async Task<ActionResult<ApiResponse<int>>> Signup(RegisterCommand command)
 			=> await Mediator.Send(command);
 
 		[Authorize]

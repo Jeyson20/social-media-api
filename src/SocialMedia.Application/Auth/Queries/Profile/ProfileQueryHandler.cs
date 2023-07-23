@@ -8,7 +8,7 @@ using SocialMedia.Application.Users.DTOs;
 
 namespace SocialMedia.Application.Auth.Queries.Profile
 {
-	internal class ProfileQueryHandler : IRequestHandler<ProfileQuery, ApiResponse<UserDto>>
+	public class ProfileQueryHandler : IRequestHandler<ProfileQuery, ApiResponse<UserDto>>
 	{
 		private readonly IApplicationDbContext _context;
 		private readonly ICurrentUserService _currentUserService;

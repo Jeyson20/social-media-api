@@ -2,7 +2,7 @@
 using MediatR;
 using SocialMedia.Application.Common.Wrappers;
 using SocialMedia.Application.Users.DTOs;
-using SocialMedia.Domain.Entities.Users;
+using SocialMedia.Domain.Entities;
 using SocialMedia.Domain.Enums;
 
 namespace SocialMedia.Application.Users.Queries.GetAllUsers

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SocialMedia.Domain.Entities.Posts.Events;
+using SocialMedia.Domain.Events.Posts;
 
 namespace SocialMedia.Application.Posts.EventHandlers
 {

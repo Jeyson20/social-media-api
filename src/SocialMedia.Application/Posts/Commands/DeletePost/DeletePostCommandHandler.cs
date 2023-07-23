@@ -5,7 +5,7 @@ using SocialMedia.Application.Common.Wrappers;
 
 namespace SocialMedia.Application.Posts.Commands.DeletePost
 {
-	internal class DeletePostCommandHandler : IRequestHandler<DeletePostCommand, ApiResponse<int>>
+	public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand, ApiResponse<int>>
 	{
 		private readonly IApplicationDbContext _context;
 		private readonly ICurrentUserService _currentUserService;

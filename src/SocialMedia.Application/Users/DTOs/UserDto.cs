@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SocialMedia.Application.Common.Mappings;
-using SocialMedia.Domain.Entities.Users;
+using SocialMedia.Domain.Entities;
 using SocialMedia.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 

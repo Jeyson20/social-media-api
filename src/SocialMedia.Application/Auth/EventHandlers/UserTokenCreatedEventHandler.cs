@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SocialMedia.Domain.Entities.Users.Events;
+using SocialMedia.Domain.Events.Users;
 
 namespace SocialMedia.Application.Auth.EventHandlers
 {
-	public class UserTokenCreatedEventHandler : INotificationHandler<UserTokenCreatedEvent>
+    public class UserTokenCreatedEventHandler : INotificationHandler<UserTokenCreatedEvent>
 	{
 		private readonly ILogger<UserTokenCreatedEventHandler> _logger;
 		public UserTokenCreatedEventHandler(ILogger<UserTokenCreatedEventHandler> logger)

@@ -4,7 +4,7 @@ using SocialMedia.Application.Common.Interfaces;
 
 namespace SocialMedia.Application.Auth.Commands.RefreshToken
 {
-	internal class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, TokenDto>
+	public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, TokenDto>
 	{
 		private readonly IAuthService _authService;
 

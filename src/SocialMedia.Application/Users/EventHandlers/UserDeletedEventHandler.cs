@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SocialMedia.Domain.Entities.Users.Events;
+using SocialMedia.Domain.Events.Users;
 
 namespace SocialMedia.Application.Users.EventHandlers
 {
-	public class UserDeletedEventHandler : INotificationHandler<UserDeletedEvent>
+    public class UserDeletedEventHandler : INotificationHandler<UserDeletedEvent>
 	{
 		private readonly ILogger<UserDeletedEventHandler> _logger;
 		public UserDeletedEventHandler(ILogger<UserDeletedEventHandler> logger)

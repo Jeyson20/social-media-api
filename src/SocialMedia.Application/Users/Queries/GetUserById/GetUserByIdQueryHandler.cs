@@ -8,7 +8,7 @@ using SocialMedia.Application.Users.DTOs;
 
 namespace SocialMedia.Application.Users.Queries.GetUserById
 {
-	internal class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, ApiResponse<UserDto>>
+	public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, ApiResponse<UserDto>>
 	{
 		private readonly IApplicationDbContext _context;
 		private readonly IMapper _mapper;

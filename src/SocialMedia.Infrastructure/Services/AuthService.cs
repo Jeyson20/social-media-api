@@ -8,7 +8,7 @@ using SocialMedia.Application.Common.Exceptions;
 using SocialMedia.Application.Common.Helpers;
 using SocialMedia.Application.Common.Interfaces;
 using SocialMedia.Application.Common.Utils;
-using SocialMedia.Domain.Entities.Users;
+using SocialMedia.Domain.Entities;
 using SocialMedia.Domain.Enums;
 using SocialMedia.Infrastructure.Persistence.Context;
 using System.IdentityModel.Tokens.Jwt;
@@ -34,7 +34,7 @@ namespace SocialMedia.Infrastructure.Services
 		public async Task<AuthDto> AuthenticateAsync(AuthenticateCommand command, CancellationToken cancellationToken = default)
 		{
 			var userExist = await _context.Users
-				.Include(x => x.Token)
+				.Include(x => x.RefreshToken)
 				.FirstOrDefaultAsync(x => x.Username == command.Username, cancellationToken)
 				?? throw new ApiException("User or password is incorrect.");
 
@@ -50,10 +50,10 @@ namespace SocialMedia.Infrastructure.Services
 
 			var hashedRefreshToken = PasswordHelper.HashPassword(refreshToken);
 
-			if (userExist.Token is null)
+			if (userExist.RefreshToken is null)
 				userExist.SetUserToken(hashedRefreshToken);
 			else
-				userExist.Token.UpdateUsertoken(hashedRefreshToken);
+				userExist.UpdateUserToken(hashedRefreshToken);
 
 			await _context.SaveChangesAsync(cancellationToken);
 

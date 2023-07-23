@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SocialMedia.Domain.Entities.Posts;
-using SocialMedia.Domain.Entities.Users;
+using SocialMedia.Domain.Entities;
 
 namespace SocialMedia.Application.Common.Interfaces
 {

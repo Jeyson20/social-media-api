@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SocialMedia.Domain.Entities.Posts.Events;
+using SocialMedia.Domain.Events.Posts;
 
 namespace SocialMedia.Application.Posts.EventHandlers
 {
-	public class PostCreatedEventHandler : INotificationHandler<PostCreatedEvent>
+    public class PostCreatedEventHandler : INotificationHandler<PostCreatedEvent>
 	{
 		private readonly ILogger<PostCreatedEventHandler> _logger;
 		public PostCreatedEventHandler(ILogger<PostCreatedEventHandler> logger)
