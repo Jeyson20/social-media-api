@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  socialmediaapi:
+    image: socialmediaapi
+    build:
+      context: .
+      dockerfile: src/SocialMedia.API/Dockerfile
+    ports:
+      - 5000:80
+    networks:
+      - socialmedia
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=SocialMediaDB;User Id=sa;Password=P@assword;MultipleActiveResultSets=true;TrustServerCertificate=true;Encrypt=False;
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    environment:
+      SA_PASSWORD: P@assword
+      ACCEPT_EULA: "Y"
+    ports:
+      - 14333:1433
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P P@assword -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      retries: 10
+      start_period: 10s
+      timeout: 3s   
+
+networks:
+  socialmedia:
+    name: socialmedia_network
+    driver: bridge
