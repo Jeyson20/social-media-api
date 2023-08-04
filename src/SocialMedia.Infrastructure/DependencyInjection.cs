@@ -22,9 +22,18 @@ namespace SocialMedia.Infrastructure
 		{
 			services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 
-			services.AddDbContext<ApplicationDbContext>(options =>
-			options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-				builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+			if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+			{
+				services.AddDbContext<ApplicationDbContext>(options =>
+					options.UseInMemoryDatabase("SocialMediaDB"));
+			}
+			else
+			{
+				services.AddDbContext<ApplicationDbContext>(options =>
+				options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+					builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+			}
+
 
 			services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 			services.AddScoped<ApplicationDbContextInitialiser>();

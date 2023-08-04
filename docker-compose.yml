@@ -2,22 +2,20 @@ version: '3.8'
 
 services:
 
-  socialmediaapi:
+  api:
     image: socialmediaapi
     build:
       context: .
-      dockerfile: src/SocialMedia.API/Dockerfile
     ports:
       - 5000:80
-    networks:
-      - socialmedia
     environment:
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=SocialMediaDB;User Id=sa;Password=P@assword;MultipleActiveResultSets=true;TrustServerCertificate=true;Encrypt=False;
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=SocialMediaDB;User ID=sa;Password=P@assword;TrustServerCertificate=true;Encrypt=false;
     depends_on:
       - sqlserver
 
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
       SA_PASSWORD: P@assword
       ACCEPT_EULA: "Y"
@@ -31,6 +29,7 @@ services:
       timeout: 3s   
 
 networks:
-  socialmedia:
-    name: socialmedia_network
-    driver: bridge
+  default:
+    name: socialmedia-network
+
+    
