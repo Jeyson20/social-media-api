@@ -24,7 +24,7 @@ namespace SocialMedia.Application.Users.Commands.UpdateUser
 
 			await _context.SaveChangesAsync(cancellationToken);
 
-			return new ApiResponse<int>(user.Id, "User has been updated successfully");
+			return ApiResponse<int>.Success(user.Id, "User has been updated successfully");
 		}
 	}
 }

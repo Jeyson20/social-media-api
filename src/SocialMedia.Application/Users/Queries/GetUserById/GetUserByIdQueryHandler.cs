@@ -28,7 +28,7 @@ namespace SocialMedia.Application.Users.Queries.GetUserById
 				.FirstOrDefaultAsync(cancellationToken)
 				?? throw new KeyNotFoundException("User not found");
 
-			return new ApiResponse<UserDto>(userDto);
+			return ApiResponse<UserDto>.Success(userDto);
 		}
 	}
 }

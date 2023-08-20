@@ -29,7 +29,7 @@ namespace SocialMedia.Application.Posts.Queries.GetPostById
 				.ProjectTo<PostDto>(_mapper.ConfigurationProvider)
 				.FirstOrDefaultAsync(cancellationToken) ?? throw new KeyNotFoundException("Post not found");
 
-			return new ApiResponse<PostDto>(post);
+			return ApiResponse<PostDto>.Success(post);
 		}
 	}
 }

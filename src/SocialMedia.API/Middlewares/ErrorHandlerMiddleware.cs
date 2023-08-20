@@ -43,7 +43,7 @@ namespace SocialMedia.API.Middlewares
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = statusCode;
 
-			var responseModel = new ApiResponse<string>(message);
+			var responseModel = ApiResponse<string>.Error(message);
 
 			await context.Response.WriteAsJsonAsync(responseModel, new JsonSerializerOptions
 			{
@@ -57,7 +57,7 @@ namespace SocialMedia.API.Middlewares
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
 
-			var responseModel = new ApiResponse<string>(
+			var responseModel = ApiResponse<string>.ValidationErrors(
 				succeeded: false,
 				message: e.Message,
 				errors: e.Errors

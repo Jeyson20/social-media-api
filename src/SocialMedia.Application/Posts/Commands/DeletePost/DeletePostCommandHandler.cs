@@ -29,7 +29,7 @@ namespace SocialMedia.Application.Posts.Commands.DeletePost
 
 			await _context.SaveChangesAsync(cancellationToken);
 
-			return new ApiResponse<int>(request.Id);
+			return ApiResponse<int>.Success(request.Id);
 		}
 	}
 }

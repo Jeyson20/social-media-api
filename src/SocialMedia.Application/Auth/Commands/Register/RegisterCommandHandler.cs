@@ -25,7 +25,7 @@ namespace SocialMedia.Application.Auth.Commands.Register
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return new ApiResponse<int>(newUser.Id);
+            return ApiResponse<int>.Success(newUser.Id);
         }
     }
 }

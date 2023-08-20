@@ -23,7 +23,7 @@ namespace SocialMedia.Application.Users.Commands.DeleteUser
 
 			await _context.SaveChangesAsync(cancellationToken);
 
-			return new ApiResponse<int>(user.Id);
+			return ApiResponse<int>.Success(user.Id);
 		}
 	}
 }

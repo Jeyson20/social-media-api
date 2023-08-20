@@ -2,24 +2,29 @@
 {
 	public class ApiResponse<T>
 	{
-		public ApiResponse(T data, string? message = "OK")
+		private ApiResponse(T data, string? message)
 		{
 			Succeeded = true;
 			Message = message;
 			Data = data;
 		}
 
-		public ApiResponse(string message)
+		private ApiResponse(string message)
 		{
 			Message = message;
 		}
 
-		public ApiResponse(bool succeeded, string message, Dictionary<string, string[]> errors)
+		private ApiResponse(bool succeeded, string message, Dictionary<string, string[]> errors)
 		{
 			Succeeded = succeeded;
 			Message = message;
 			Errors = errors;
 		}
+
+		public static ApiResponse<T> Success(T data, string? message = "OK") => new(data, message);
+		public static ApiResponse<T> Error(string message = "Error") => new(message);
+		public static ApiResponse<T> ValidationErrors(bool succeeded, string message, Dictionary<string, string[]> errors) 
+			=> new(succeeded, message,errors);
 
 		public bool Succeeded { get; init; } = false;
 		public string? Message { get; }

@@ -30,7 +30,7 @@ namespace SocialMedia.Application.Auth.Queries.Profile
 				.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken)
 				?? throw new KeyNotFoundException("User not found");
 
-			return new ApiResponse<UserDto>(user);
+			return ApiResponse<UserDto>.Success(user);
 
 		}
 	}

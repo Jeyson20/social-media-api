@@ -84,7 +84,7 @@ namespace SocialMedia.Infrastructure
 							context.Response.Headers.Add("x-token-expired", "true");
 							context.ErrorDescription = $"The token expired on {authenticationException?.Expires.ToString("yyyy-MM-ddThh:mm:ss")}";
 						}
-						var result = new ApiResponse<string>(context.ErrorDescription);
+						var result = ApiResponse<string>.Error(context.ErrorDescription);
 						return context.Response.WriteAsync(JsonConvert.SerializeObject(result, settings));
 					},
 				};
