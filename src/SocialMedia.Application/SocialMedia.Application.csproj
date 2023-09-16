@@ -18,4 +18,8 @@
     <ProjectReference Include="..\SocialMedia.Domain\SocialMedia.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Posts\Queries\GetComments\" />
+  </ItemGroup>
+
 </Project>

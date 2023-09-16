@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.API.Utils;
+using SocialMedia.Application.Common.Exceptions;
 using SocialMedia.Application.Common.Wrappers;
+using SocialMedia.Application.Posts.Commands.AddComment;
 using SocialMedia.Application.Posts.Commands.CreatePost;
 using SocialMedia.Application.Posts.Commands.DeletePost;
 using SocialMedia.Application.Posts.DTOs;
@@ -49,5 +51,18 @@ namespace SocialMedia.API.Controllers.V1
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<ApiResponse<int>>> DeletePost(int id)
 			=> await Mediator.Send(new DeletePostCommand(id));
+
+		[Authorize]
+		[HttpPost("{postId}/Comments")]
+		[SwaggerOperation(Summary = "Private: Add comment to post")]
+		[ProducesResponseType(typeof(ApiResponse<int>), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		public async Task<ActionResult<ApiResponse<int>>> AddCommentToPost([FromRoute] int postId, AddCommentToPostCommand command)
+		{
+			if (postId != command.PostId) throw new ApiException("Ids must be equals");
+
+			return await Mediator.Send(command);
+		}
 	}
 }
